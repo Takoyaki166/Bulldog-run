@@ -1,0 +1,169 @@
+// ============================================================
+//  JEEPNEY OBSTACLE — uses jeepney.png image
+// ============================================================
+
+class JeepneyObstacle extends Obstacle {
+  private String honkSound;
+  private int    laneCount;
+  private PImage jeepImg;
+
+  JeepneyObstacle(float x, float y, float scrollSpeed) {
+    super(x, y, scrollSpeed);
+    obstacleType = "Jeepney";
+    honkSound    = "BEEP!";
+    laneCount    = 1;
+    obsW         = 110;
+    obsH         = 60;
+    damage       = 1;
+    jeepImg      = loadImage("jeepney.png");
+  }
+
+  @Override
+  void render() {
+    pushMatrix();
+    translate(x, y);
+
+    // Shadow
+    noStroke();
+    fill(0, 0, 0, 50);
+    ellipse(0, 6, obsW - 10, 10);
+
+    if (jeepImg != null) {
+      imageMode(CENTER);
+      image(jeepImg, 0, -obsH / 2, obsW, obsH);
+    } else {
+      fill(200, 30, 30);
+      rect(-obsW/2, -obsH, obsW, obsH, 6);
+      fill(255);
+      textAlign(CENTER, CENTER);
+      textSize(9);
+      text("jeepney.png\nnot found", 0, -obsH/2);
+    }
+
+    popMatrix();
+  }
+
+  @Override
+  void onCollide() { }
+
+  @Override
+  void spawnEffect() { }
+}
+
+BanigObstacle(float x, float y, float scrollSpeed) {
+    super(x, y, scrollSpeed);
+    obstacleType = "Banig";
+    honkSound    = " ";
+    laneCount    = 1;
+    obsW         = 110;
+    obsH         = 60;
+    damage       = 1;
+    jeepImg      = loadImage("banig.png");
+  }
+
+  @Override
+  void render() {
+    pushMatrix();
+    translate(x, y);
+
+    // Shadow
+    noStroke();
+    fill(0, 0, 0, 50);
+    ellipse(0, 6, obsW - 10, 10);
+
+    if (jeepImg != null) {
+      imageMode(CENTER);
+      image(jeepImg, 0, -obsH / 2, obsW, obsH);
+    } else {
+      fill(200, 30, 30);
+      rect(-obsW/2, -obsH, obsW, obsH, 6);
+      fill(255);
+      textAlign(CENTER, CENTER);
+      textSize(9);
+      text("banig.png\nnot found", 0, -obsH/2);
+    }
+
+    popMatrix();
+  }
+
+  @Override
+  void onCollide() { }
+
+  @Override
+  void spawnEffect() { }
+}
+
+
+// ============================================================
+//  TRICYCLE OBSTACLE — uses tricycle.png image
+// ============================================================
+
+class TricycleObstacle extends Obstacle {
+  private PImage tricycleImg;
+
+  TricycleObstacle(float x, float y, float scrollSpeed) {
+    super(x, y, scrollSpeed);
+    obstacleType = "Tricycle";
+    obsW         = 80;
+    obsH         = 55;
+    damage       = 1;
+    tricycleImg  = loadImage("tricycle.png");
+  }
+
+  @Override
+  void render() {
+    pushMatrix();
+    translate(x, y);
+
+    // Shadow
+    noStroke();
+    fill(0, 0, 0, 50);
+    ellipse(0, 6, obsW - 10, 10);
+
+    if (tricycleImg != null) {
+      imageMode(CENTER);
+      image(tricycleImg, 0, -obsH / 2, obsW, obsH);
+    } else {
+      // Fallback drawn tricycle
+      drawFallbackTricycle();
+    }
+
+    popMatrix();
+  }
+
+  private void drawFallbackTricycle() {
+    // Sidecar body
+    fill(color(30, 120, 200));
+    rect(-obsW/2, -obsH, obsW * 0.55, obsH - 10, 5);
+
+    // Sidecar roof
+    fill(color(20, 90, 160));
+    rect(-obsW/2 - 4, -obsH - 6, obsW * 0.55 + 8, 10, 3);
+
+    // Motorcycle body
+    fill(color(200, 60, 30));
+    rect(-obsW/2 + (int)(obsW * 0.5), -obsH + 8, (int)(obsW * 0.45), obsH - 18, 4);
+
+    // Wheels (3)
+    fill(color(40, 40, 40));
+    ellipse(-obsW/2 + 18, 0, 22, 22);   // sidecar wheel
+    ellipse(-obsW/2 + (int)(obsW * 0.55), 0, 22, 22); // front motorcycle
+    ellipse(obsW/2 - 14, 0, 22, 22);    // rear motorcycle
+
+    fill(color(160, 160, 160));
+    ellipse(-obsW/2 + 18, 0, 10, 10);
+    ellipse(-obsW/2 + (int)(obsW * 0.55), 0, 10, 10);
+    ellipse(obsW/2 - 14, 0, 10, 10);
+
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textSize(8);
+    text("TRICYCLE", 0, -obsH/2);
+  }
+
+  @Override
+  void onCollide() { }
+
+  @Override
+  void spawnEffect() { }
+}
